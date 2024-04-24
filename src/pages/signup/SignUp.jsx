@@ -58,7 +58,7 @@ const SignUp = () => {
               placeholder="Confrim password"
             />
           </label>
-          <div className="flex flex-col">
+          <div className="flex gap-4">
             <label className="inline-flex justify-start gap-3 cursor-pointer label">
               <input
                 type="radio"

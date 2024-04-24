@@ -1,9 +1,10 @@
-import SignUp from "./pages/signup/SignUp";
+import MainLayout from "./components/layouts/MainLayout";
+import Home from "./pages/home/Home";
 
 export default function App() {
   return (
-    <>
-      <SignUp />
-    </>
+    <MainLayout>
+      <Home />
+    </MainLayout>
   );
 }

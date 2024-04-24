@@ -2,11 +2,31 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+  width: 4px;
+}
+
+*::-webkit-scrollbar-track {
+  background: rbga(255, 255, 255, 0.3);
+  border-radius: 5px;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.4);
+  border-radius: 14px;
+}
+
 body {
   width: 100%;
   min-height: 100vh;
-  background: red;
-  background: url("./assets/BG.webp") no-repeat;
+  background: 
+  /* linear-gradient(
+      to bottom left,
+      rgba(0, 0, 0, 0.7),
+      rgba(255, 255, 255, 0)
+    ), */ url("./assets/BG.webp");
+
   background-size: cover;
   background-position: center;
 }
