@@ -5,6 +5,8 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import TextInput from "../../components/formComponents/TextInput";
 import RadioGroupInput from "../../components/formComponents/RadioGroupInput";
+import ButtonWIthLoading from "../../components/global/ButtonWIthLoading";
+import useApiCall from "../../hooks/useApiCall";
 
 const schema = yup.object().shape({
   name: yup
@@ -33,6 +35,7 @@ const schema = yup.object().shape({
 });
 
 const SignUp = () => {
+  const { loading, apiCall } = useApiCall();
   const {
     handleSubmit,
     register,
@@ -46,9 +49,14 @@ const SignUp = () => {
     },
   });
 
-  console.log(errors);
-
-  const onSubmit = (data) => console.log(data);
+  const onSubmit = async (data) => {
+    try {
+      let response = await apiCall("post", "/auth/v1/signup", { body: data });
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <MainLayout>
       <div className="flex flex-col self-center w-full h-full px-4 py-8 mx-auto bg-gray-600 rounded-r-none md:h-auto md:max-w-lg backdrop-blur-lg bg-clip-padding backdrop-filter bg-opacity-10 md:rounded-2xl">
@@ -63,7 +71,6 @@ const SignUp = () => {
             register={register}
             errors={errors}
           />
-
           <TextInput
             name={"username"}
             label="@"
@@ -71,29 +78,25 @@ const SignUp = () => {
             register={register}
             errors={errors}
           />
-
           <PasswordInput
             name={"password"}
             placeholder={"Password"}
             register={register}
             errors={errors}
           />
-
           <PasswordInput
             name={"confirmPassword"}
             placeholder={"Confirm password"}
             register={register}
             errors={errors}
           />
-
           <RadioGroupInput
             name={"gender"}
             register={register}
             valueArray={["male", "female"]}
             errors={errors}
           />
-
-          <button className="mt-2 text-green-300 btn">Sign Up</button>
+          <ButtonWIthLoading>Sign Up</ButtonWIthLoading>
         </form>
       </div>
     </MainLayout>

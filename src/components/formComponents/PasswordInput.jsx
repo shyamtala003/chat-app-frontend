@@ -24,7 +24,7 @@ const PasswordInput = ({ name, placeholder, register, errors, style = "" }) => {
 
       <div
         className={`mt-2 collapse ${
-          errors.username ? "collapse-open" : "collapse-close"
+          errors[name]?.message ? "collapse-open" : "collapse-close"
         }`}
       >
         <p className="text-red-300 collapse-content">{errors[name]?.message}</p>
