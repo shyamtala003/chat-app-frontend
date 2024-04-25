@@ -7,6 +7,7 @@ import TextInput from "../../components/formComponents/TextInput";
 import RadioGroupInput from "../../components/formComponents/RadioGroupInput";
 import ButtonWIthLoading from "../../components/global/ButtonWIthLoading";
 import useApiCall from "../../hooks/useApiCall";
+import { toast } from "react-toastify";
 
 const schema = yup.object().shape({
   name: yup
@@ -54,7 +55,7 @@ const SignUp = () => {
       let response = await apiCall("post", "/auth/v1/signup", { body: data });
       console.log(response);
     } catch (error) {
-      console.log(error);
+      return toast(error.response.data.message);
     }
   };
   return (
@@ -96,7 +97,7 @@ const SignUp = () => {
             valueArray={["male", "female"]}
             errors={errors}
           />
-          <ButtonWIthLoading>Sign Up</ButtonWIthLoading>
+          <ButtonWIthLoading loading={loading}>Sign Up</ButtonWIthLoading>
         </form>
       </div>
     </MainLayout>

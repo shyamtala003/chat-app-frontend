@@ -23,7 +23,9 @@ const RadioGroupInput = ({ name, register, errors, valueArray = [] }) => {
           errors.username ? "collapse-open" : "collapse-close"
         }`}
       >
-        <p className="text-red-300 collapse-content">{errors[name]?.message}</p>
+        <p className="text-red-300 collapse-content p-0 pl-3 pb-2">
+          {errors[name]?.message}
+        </p>
       </div>
     </div>
   );
