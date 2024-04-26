@@ -4,6 +4,8 @@ import SignIn from "./pages/signin/SignIn";
 import Home from "./pages/home/Home";
 import SignUp from "./pages/signup/SignUp";
 import Toast from "./components/global/Toast";
+import ProtectedRoute from "./components/routeProtector/ProtectedRoute";
+import PublicRoute from "./components/routeProtector/PublicRoute";
 
 export default function App() {
   return (
@@ -11,9 +13,30 @@ export default function App() {
       <MainLayout>
         <BrowserRouter>
           <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/login" element={<SignIn />} />
-            <Route path="/registration" element={<SignUp />} />
+            <Route
+              path="/"
+              element={
+                <ProtectedRoute>
+                  <Home />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/login"
+              element={
+                <PublicRoute>
+                  <SignIn />
+                </PublicRoute>
+              }
+            />
+            <Route
+              path="/registration"
+              element={
+                <PublicRoute>
+                  <SignUp />
+                </PublicRoute>
+              }
+            />
           </Routes>
         </BrowserRouter>
       </MainLayout>
