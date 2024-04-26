@@ -35,26 +35,28 @@ const SendMessageForm = () => {
     return reset();
   }
   return (
-    <form
-      className="flex items-center w-full px-4 py-3"
-      onSubmit={handleSubmit(sendMessage)}>
-      <input
-        type="text"
-        name="message"
-        placeholder="Type here"
-        className="w-full border-t border-none rounded-r-none input input-bordered"
-        {...register("message")}
-      />
-      <button
-        className="border-none rounded-l-none btn btn-square disabled:bg-opacity-95  disabled:cursor-no-drop"
-        disabled={loading || !formState.isValid}>
-        {loading ? (
-          <span className="loading loading-spinner"></span>
-        ) : (
-          <BsFillSendFill />
-        )}
-      </button>
-    </form>
+    <div className="w-full sticky bottom-1">
+      <form
+        className="flex items-center w-full px-4 py-3"
+        onSubmit={handleSubmit(sendMessage)}>
+        <input
+          type="text"
+          name="message"
+          placeholder="Type here"
+          className="w-full border-t border-none rounded-r-none input input-bordered"
+          {...register("message")}
+        />
+        <button
+          className="border-none rounded-l-none btn btn-square disabled:bg-opacity-95  disabled:cursor-no-drop"
+          disabled={loading || !formState.isValid}>
+          {loading ? (
+            <span className="loading loading-spinner"></span>
+          ) : (
+            <BsFillSendFill />
+          )}
+        </button>
+      </form>
+    </div>
   );
 };
 
