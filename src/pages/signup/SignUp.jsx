@@ -8,6 +8,7 @@ import RadioGroupInput from "../../components/formComponents/RadioGroupInput";
 import ButtonWIthLoading from "../../components/global/ButtonWIthLoading";
 import useApiCall from "../../hooks/useApiCall";
 import { toast } from "react-toastify";
+import { useAuth } from "../../stores/useAuth";
 
 const schema = yup.object().shape({
   name: yup
@@ -37,27 +38,38 @@ const schema = yup.object().shape({
 
 const SignUp = () => {
   const { loading, apiCall } = useApiCall();
+  const { setUseDetails } = useAuth();
+
+  // use form hook for form management
   const {
     handleSubmit,
     register,
-    formState: { errors },
+    formState: { errors, defaultValues },
+    reset,
   } = useForm({
     resolver: yupResolver(schema),
     mode: "onChange",
     defaultValues: {
       username: "",
       password: "",
+      confirmPassword: "",
+      gender: null,
     },
   });
 
+  // signup handler
   const onSubmit = async (data) => {
     try {
       let response = await apiCall("post", "/auth/v1/signup", { body: data });
-      console.log(response);
+      let { _id: userId, username, name, gender } = response.data;
+      setUseDetails({ isLoggedIn: true, userId, username, gender, name });
+      toast(response.message, { type: "success" });
+      return reset();
     } catch (error) {
-      return toast(error.response.data.message);
+      return toast(error.response.data.message, { type: "warning" });
     }
   };
+
   return (
     <MainLayout>
       <div className="flex flex-col self-center w-full h-full px-4 py-8 mx-auto bg-gray-600 rounded-r-none md:h-auto md:max-w-lg backdrop-blur-lg bg-clip-padding backdrop-filter bg-opacity-10 md:rounded-2xl">
@@ -71,6 +83,7 @@ const SignUp = () => {
             placeholder={"Name"}
             register={register}
             errors={errors}
+            defaultValue={defaultValues?.name}
           />
           <TextInput
             name={"username"}
@@ -78,6 +91,7 @@ const SignUp = () => {
             placeholder={"Usenrname"}
             register={register}
             errors={errors}
+            defaultValue={defaultValues?.username}
           />
           <PasswordInput
             name={"password"}
