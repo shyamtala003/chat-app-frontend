@@ -2,6 +2,7 @@ const TextInput = ({
   name,
   label,
   placeholder,
+  defaultValue = undefined,
   register,
   errors,
   style = "",
@@ -25,6 +26,7 @@ const TextInput = ({
           type="text"
           className={`grow` + style}
           placeholder={placeholder}
+          defaultValue={defaultValue}
           {...register(name)}
         />
       </label>
