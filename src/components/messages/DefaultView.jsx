@@ -1,16 +1,15 @@
 import { TiMessages } from "react-icons/ti";
+import { useAuth } from "../../stores/useAuth";
 
 const DefaultView = () => {
+  const { name } = useAuth();
   return (
-    <div className="flex items-center justify-center w-full h-full">
+    <div className="flex flex-col gap-1 items-center justify-center w-full h-full">
       <p className="text-2xl leading-8 text-center text-white">
-        Welcome 👋🏻 Shyam Tala 🌴 <br />
+        Welcome 👋🏻 {name} 🌴 <br />
         Select chat to start messaging
-        <br />
-        <center>
-          <TiMessages fontSize={"36px"} className="mt-3" />
-        </center>
       </p>
+      <TiMessages className="text-5xl text-white" />
     </div>
   );
 };

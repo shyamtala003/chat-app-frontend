@@ -1,10 +1,21 @@
-const MessageElement = () => {
+import dayjs from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime";
+import { useAuth } from "../../stores/useAuth";
+dayjs.extend(relativeTime);
+
+const MessageElement = ({ message }) => {
+  const { userId } = useAuth();
+  console.log(message);
+
+  const formattedTime = dayjs(message.createdAt).fromNow();
   return (
-    <div className="chat chat-start">
+    <div
+      className={`chat ${userId === message.senderId ? "chat-end" : "chat-start"}`}>
       <div className="chat-bubble">
-        It's over Anakin, <br />I have the high ground.
-        <br />
-        <time className="block text-xs text-right opacity-50">12:45</time>
+        {message.message}
+        <time className="block text-xs text-right opacity-50">
+          {formattedTime}
+        </time>
       </div>
     </div>
   );
