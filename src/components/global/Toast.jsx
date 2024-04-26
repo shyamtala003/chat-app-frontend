@@ -28,7 +28,7 @@ export default function Toast() {
       toastClassName={(context) => {
         return `${
           contextClass[context?.type || "default"]
-        } relative bg-opacity-50 flex p-1 w-full rounded-md justify-between backdrop-blur-lg overflow-hidden cursor-pointer`;
+        } relative bg-opacity-50 flex p-1 pb-2 w-full rounded-md justify-between backdrop-blur-lg overflow-hidden cursor-pointer`;
       }}
     />
   );
