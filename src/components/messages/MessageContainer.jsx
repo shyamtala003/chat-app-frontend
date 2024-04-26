@@ -24,7 +24,9 @@ const MessageContainer = () => {
     fetchConversation();
   }, [conversation._id]);
   return (
-    <div className="flex flex-col w-full h-full px-4 pt-2 overflow-y-auto">
+    <div
+      id="messageContainer"
+      className="flex flex-col w-full h-full px-4 pt-2 overflow-y-auto">
       {loading && (
         <>
           <MessageSkeleton />

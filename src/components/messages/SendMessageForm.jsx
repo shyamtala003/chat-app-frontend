@@ -32,6 +32,10 @@ const SendMessageForm = () => {
     );
     console.log(response.data.message);
     setMessage(response.data.message);
+
+    // scroll down message container
+    const messageContainer = document.getElementById("messageContainer");
+    messageContainer.scrollTop = messageContainer.scrollHeight;
     return reset();
   }
   return (

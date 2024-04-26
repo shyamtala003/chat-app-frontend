@@ -5,7 +5,6 @@ dayjs.extend(relativeTime);
 
 const MessageElement = ({ message }) => {
   const { userId } = useAuth();
-  console.log(message);
 
   const formattedTime = dayjs(message.createdAt).fromNow();
   return (
