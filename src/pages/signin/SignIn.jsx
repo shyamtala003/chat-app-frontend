@@ -4,6 +4,10 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import TextInput from "../../components/formComponents/TextInput";
 import PasswordInput from "../../components/formComponents/PasswordInput";
+import ButtonWIthLoading from "../../components/global/ButtonWIthLoading";
+import { useAuth } from "../../stores/useAuth";
+import { toast } from "react-toastify";
+import useApiCall from "../../hooks/useApiCall";
 
 const schema = yup.object().shape({
   username: yup
@@ -22,10 +26,15 @@ const schema = yup.object().shape({
 });
 
 const SignIn = () => {
+  const { setUseDetails } = useAuth();
+  const { loading, apiCall } = useApiCall();
+
+  // use form hook for form management
   const {
     handleSubmit,
     register,
     formState: { errors },
+    reset,
   } = useForm({
     resolver: yupResolver(schema),
     mode: "onChange",
@@ -35,11 +44,22 @@ const SignIn = () => {
     },
   });
 
-  const onSubmit = (data) => console.log(data);
+  // signin handler
+  const onSubmit = async (data) => {
+    try {
+      let response = await apiCall("post", "/auth/v1/signin", { body: data });
+      let { _id: userId, username, name, gender } = response.data;
+      setUseDetails({ isLoggedIn: true, userId, username, gender, name });
+      toast(response.message, { type: "success" });
+      return reset();
+    } catch (error) {
+      return toast(error.response.data.message, { type: "warning" });
+    }
+  };
 
   return (
     <MainLayout>
-      <div className="flex flex-col self-center w-full h-full px-4 py-8 mx-auto bg-gray-600 rounded-r-none md:h-auto md:max-w-96 backdrop-blur-lg bg-clip-padding backdrop-filter bg-opacity-10 md:rounded-2xl">
+      <div className="flex flex-col self-center w-full h-full px-4 py-8 mx-auto bg-gray-600 rounded-r-none md:h-auto md:max-w-lg backdrop-blur-lg bg-clip-padding backdrop-filter bg-opacity-10 md:rounded-2xl">
         <h2 className="text-2xl font-semibold text-center text-white">
           Login to <span className="text-green-300">ChatApp</span>
         </h2>
@@ -58,7 +78,7 @@ const SignIn = () => {
             register={register}
             errors={errors}
           />
-          <button className="mt-4 text-green-300 btn">Login</button>
+          <ButtonWIthLoading loading={loading}>Login</ButtonWIthLoading>
         </form>
       </div>
     </MainLayout>
