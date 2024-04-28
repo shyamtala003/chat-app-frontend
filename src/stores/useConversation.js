@@ -3,6 +3,7 @@ import { create } from "zustand";
 export const useConversation = create((set) => ({
   conversation: null,
   messages: [],
+  onlineUsers: [],
 
   //   1. select selected conversation
   setSelectedConversation(conversation) {
@@ -21,12 +22,13 @@ export const useConversation = create((set) => ({
     set((state) => ({ messages: [...state.messages, message] }));
   },
 
-  // reset message array
+  // 4.reset message array
   setCleanMessage() {
     set(() => ({ messages: [] }));
   },
 
-  //   setBasicDetails(rest) {
-  //     set((state) => ({ ...state, ...rest }));
-  //   },
+  // 5.set online user
+  setOnlineUser(onlineUsers) {
+    set(() => ({ onlineUsers }));
+  },
 }));

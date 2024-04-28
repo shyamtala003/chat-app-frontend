@@ -1,9 +1,12 @@
 import { memo } from "react";
 import { useConversation } from "../../stores/useConversation";
+import useTypingStatus from "../../hooks/socket/useTypingStatus";
 
-const ConversationItem = ({ user }) => {
-  let { setSelectedConversation, conversation } = useConversation();
-
+const ConversationItem = memo(function ConversationItem({ user }) {
+  let { setSelectedConversation, conversation, onlineUsers } =
+    useConversation();
+  let isOnline = onlineUsers.includes(user._id);
+  const isTyping = useTypingStatus(user._id);
   function setConversation() {
     if (conversation === null || conversation?.id !== user._id)
       return setSelectedConversation(user);
@@ -14,15 +17,28 @@ const ConversationItem = ({ user }) => {
       onClick={setConversation}
       className="flex items-center px-2 py-3 transition-all duration-200 ease-in-out border-b border-white cursor-pointer border-opacity-20 hover:backdrop-blur-xl hover:rounded-lg hover:border-transparent">
       <div className="flex items-center gap-2">
-        <div className="avatar online">
+        <div className={`avatar ${isOnline && "online"}`}>
           <div className="rounded-full w-11">
             <img src={user?.profilePicture} />
           </div>
         </div>
-        <p className="text-white text-md">{user?.name}</p>
+
+        <div className="flex flex-col items-start justify-center">
+          <p className="text-white text-md">{user?.name}</p>
+
+          {/* code for typing status */}
+          <div
+            className={`collapse ${
+              isTyping ? "collapse-open" : "collapse-close"
+            }`}>
+            <p className="p-0 text-sm font-semibold text-green-400 collapse-content">
+              typing...
+            </p>
+          </div>
+        </div>
       </div>
     </div>
   );
-};
+});
 
-export default memo(ConversationItem);
+export default ConversationItem;
