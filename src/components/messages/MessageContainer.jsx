@@ -3,6 +3,7 @@ import useApiCall from "../../hooks/useApiCall";
 import { useConversation } from "../../stores/useConversation";
 import MessageElement from "./MessageElement";
 import MessageSkeleton from "./skeleton/MessageSkeleton";
+import scrollDown from "../../../utils/scrollDown";
 
 const MessageContainer = () => {
   const { messages, setMessages, conversation, setCleanMessage } =
@@ -18,10 +19,12 @@ const MessageContainer = () => {
         "get",
         `/api/v1/get-message/${conversation._id}`
       );
-      return setMessages(messages.data.messages);
+      setMessages(messages.data.messages);
+      return scrollDown("messageContainer");
     }
 
     fetchConversation();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [conversation._id]);
   return (
     <div

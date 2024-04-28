@@ -4,6 +4,7 @@ import useApiCall from "../../hooks/useApiCall";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
+import scrollDown from "../../../utils/scrollDown";
 
 const schema = yup.object().shape({
   message: yup.string().required("username is required"),
@@ -30,16 +31,12 @@ const SendMessageForm = () => {
         body: data,
       }
     );
-    console.log(response.data.message);
     setMessage(response.data.message);
-
-    // scroll down message container
-    const messageContainer = document.getElementById("messageContainer");
-    messageContainer.scrollTop = messageContainer.scrollHeight;
+    scrollDown("messageContainer");
     return reset();
   }
   return (
-    <div className="w-full sticky bottom-1">
+    <div className="sticky w-full bottom-1">
       <form
         className="flex items-center w-full px-4 py-3"
         onSubmit={handleSubmit(sendMessage)}>
@@ -51,7 +48,7 @@ const SendMessageForm = () => {
           {...register("message")}
         />
         <button
-          className="border-none rounded-l-none btn btn-square disabled:bg-opacity-95  disabled:cursor-no-drop"
+          className="border-none rounded-l-none btn btn-square disabled:bg-opacity-95 disabled:cursor-no-drop"
           disabled={loading || !formState.isValid}>
           {loading ? (
             <span className="loading loading-spinner"></span>
