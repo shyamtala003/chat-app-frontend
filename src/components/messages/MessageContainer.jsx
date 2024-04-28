@@ -3,7 +3,7 @@ import useApiCall from "../../hooks/useApiCall";
 import { useConversation } from "../../stores/useConversation";
 import MessageElement from "./MessageElement";
 import MessageSkeleton from "./skeleton/MessageSkeleton";
-import scrollDown from "../../../utils/scrollDown";
+import scrollDown from "../../utils/scrollDown";
 
 const MessageContainer = () => {
   const { messages, setMessages, conversation, setCleanMessage } =

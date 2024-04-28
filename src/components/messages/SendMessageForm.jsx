@@ -4,7 +4,7 @@ import useApiCall from "../../hooks/useApiCall";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
-import scrollDown from "../../../utils/scrollDown";
+import scrollDown from "../../utils/scrollDown";
 
 const schema = yup.object().shape({
   message: yup.string().required("username is required"),
