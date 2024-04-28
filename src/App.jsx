@@ -1,44 +1,47 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+/* eslint-disable react-hooks/exhaustive-deps */
+import { useEffect } from "react";
 import MainLayout from "./components/layouts/MainLayout";
-import SignIn from "./pages/signin/SignIn";
-import Home from "./pages/home/Home";
-import SignUp from "./pages/signup/SignUp";
 import Toast from "./components/global/Toast";
-import ProtectedRoute from "./components/routeProtector/ProtectedRoute";
-import PublicRoute from "./components/routeProtector/PublicRoute";
+import AppRouter from "./router";
+import { useAuth } from "./stores/useAuth";
+import { socket } from "./socket/socket";
+import { useConversation } from "./stores/useConversation";
 
 export default function App() {
+  const { isLoggedIn, userId } = useAuth();
+  const { setOnlineUser } = useConversation();
+
+  useEffect(() => {
+    function onConnect() {
+      console.log("socket connected");
+    }
+
+    function onDisconnect() {
+      console.log("socket disconnected");
+    }
+
+    if (isLoggedIn) {
+      try {
+        socket.auth = { userId };
+        socket.connect();
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    socket.on("connect", onConnect);
+    socket.on("onlineUsers", (value) => setOnlineUser(value));
+    socket.on("disconnect", onDisconnect);
+
+    return () => {
+      socket.off("connect", onConnect);
+      socket.off("disconnect", onDisconnect);
+    };
+  }, [isLoggedIn, userId]); // Add isLoggedIn and userId to dependency array
+
   return (
     <>
       <MainLayout>
-        <BrowserRouter>
-          <Routes>
-            <Route
-              path="/"
-              element={
-                <ProtectedRoute>
-                  <Home />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/login"
-              element={
-                <PublicRoute>
-                  <SignIn />
-                </PublicRoute>
-              }
-            />
-            <Route
-              path="/registration"
-              element={
-                <PublicRoute>
-                  <SignUp />
-                </PublicRoute>
-              }
-            />
-          </Routes>
-        </BrowserRouter>
+        <AppRouter />
       </MainLayout>
       <Toast />
     </>
