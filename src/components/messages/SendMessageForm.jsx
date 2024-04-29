@@ -77,24 +77,25 @@ const SendMessageForm = () => {
   return (
     <div className="sticky w-full bottom-1">
       <form
-        className="flex items-center w-full px-4 py-3"
+        className="flex items-center w-full px-4 py-3 gap-2"
         onSubmit={handleSubmit(sendMessage)}>
         <input
           type="text"
           name="message"
           placeholder="Type here"
-          className="w-full border-t border-none rounded-r-none input input-bordered"
+          className="w-full rounded-3xl border-none  input input-bordered"
           {...register("message")}
+          autocomplete="off"
           onFocus={() => setInputFocused(true)}
           onBlur={() => setInputFocused(false)}
         />
         <button
-          className="border-none rounded-l-none btn btn-square disabled:bg-opacity-95 disabled:cursor-no-drop"
+          className="border-none  btn rounded-3xl disabled:bg-opacity-95 disabled:cursor-no-drop"
           disabled={loading || !formState.isValid}>
           {loading ? (
-            <span className="loading loading-spinner"></span>
+            <span className="loading w-4 loading-spinner"></span>
           ) : (
-            <BsFillSendFill />
+            <BsFillSendFill className="w-4" />
           )}
         </button>
       </form>
