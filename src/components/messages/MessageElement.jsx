@@ -11,7 +11,8 @@ const MessageElement = ({ message }) => {
   const formattedTime = dayjs(message.createdAt).fromNow();
   const self = userId === message.senderId;
   return (
-    <div className={`chat ${self ? "chat-end" : "chat-start"}`}>
+    <div
+      className={`chat ${self ? "chat-end" : "chat-start"} ${message?.shake && "animate-shake"}`}>
       <div className="chat-image avatar">
         <div className="w-8 rounded-full">
           <img

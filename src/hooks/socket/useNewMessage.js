@@ -8,6 +8,7 @@ const useNewMessage = () => {
 
   useEffect(() => {
     const newMessageComes = (newMessage) => {
+      newMessage = { ...newMessage, shake: true };
       setMessage(newMessage);
       return scrollDown("messageContainer");
     };
