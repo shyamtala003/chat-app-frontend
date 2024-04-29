@@ -18,6 +18,14 @@ export default function AppRouter() {
           }
         />
         <Route
+          path="/chat/:id"
+          element={
+            <ProtectedRoute>
+              <Home />
+            </ProtectedRoute>
+          }
+        />
+        <Route
           path="/login"
           element={
             <PublicRoute>

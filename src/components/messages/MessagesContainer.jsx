@@ -4,12 +4,15 @@ import SendMessageForm from "./SendMessageForm";
 import DefaultView from "./DefaultView";
 import { useConversation } from "../../stores/useConversation";
 import useNewMessage from "../../hooks/socket/useNewMessage";
+import { useParams } from "react-router-dom";
 
 const MessagesContainer = () => {
   const { conversation } = useConversation();
+  const param = useParams();
   useNewMessage();
   return (
-    <div className="flex flex-col w-full h-full ">
+    <div
+      className={`${!param.id ? "hidden" : "flex"} sm:flex  flex-col w-full h-full`}>
       {!conversation && <DefaultView />}
 
       {conversation && (

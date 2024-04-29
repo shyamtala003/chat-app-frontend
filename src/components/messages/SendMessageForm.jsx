@@ -75,7 +75,7 @@ const SendMessageForm = () => {
   }, [isTyping, userId, conversation._id]);
 
   return (
-    <div className="sticky w-full bottom-1">
+    <div className="sticky w-full bottom-1 ">
       <form
         className="flex items-center w-full px-4 py-3 gap-2"
         onSubmit={handleSubmit(sendMessage)}>
@@ -85,7 +85,7 @@ const SendMessageForm = () => {
           placeholder="Type here"
           className="w-full rounded-3xl border-none  input input-bordered"
           {...register("message")}
-          autocomplete="off"
+          autoComplete="off"
           onFocus={() => setInputFocused(true)}
           onBlur={() => setInputFocused(false)}
         />

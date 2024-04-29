@@ -1,16 +1,27 @@
-import { memo } from "react";
+import { memo, useEffect } from "react";
 import { useConversation } from "../../stores/useConversation";
 import useTypingStatus from "../../hooks/socket/useTypingStatus";
+import { Navigate, useNavigate, useParams } from "react-router-dom";
 
 const ConversationItem = memo(function ConversationItem({ user }) {
-  let { setSelectedConversation, conversation, onlineUsers } =
+  const navigate = useNavigate();
+  const { setSelectedConversation, conversation, onlineUsers } =
     useConversation();
   let isOnline = onlineUsers.includes(user._id);
   const isTyping = useTypingStatus(user._id);
   function setConversation() {
     if (conversation === null || conversation?.id !== user._id)
-      return setSelectedConversation(user);
+      return navigate(`/chat/${user._id}`);
   }
+
+  const param = useParams();
+
+  useEffect(() => {
+    if (conversation === null || conversation?.id !== user._id)
+      user._id === param.id && setSelectedConversation(user);
+
+    if (!param.id) setSelectedConversation(null);
+  }, [param.id]);
 
   return (
     <div
