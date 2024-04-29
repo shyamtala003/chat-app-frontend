@@ -1,5 +1,5 @@
 import { BsFillSendFill } from "react-icons/bs";
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 import { useConversation } from "../../stores/useConversation";
 import useApiCall from "../../hooks/useApiCall";
 import * as yup from "yup";
@@ -18,7 +18,7 @@ const SendMessageForm = () => {
   const { userId } = useAuth();
   const { apiCall, loading } = useApiCall();
   const [isTyping, setIsTyping] = useState(false);
-  const inputRef = useRef(null);
+  const [inputFocused, setInputFocused] = useState(false);
 
   // use form hook for form management
   const { handleSubmit, register, formState, reset } = useForm({
@@ -46,7 +46,7 @@ const SendMessageForm = () => {
     let typingTimeout;
 
     const handleKeyDown = () => {
-      if (inputRef.current === document.activeElement) setIsTyping(true);
+      if (inputFocused) setIsTyping(true);
       clearTimeout(typingTimeout);
       typingTimeout = setTimeout(() => {
         setIsTyping(false);
@@ -58,7 +58,7 @@ const SendMessageForm = () => {
     return () => {
       document.removeEventListener("keydown", handleKeyDown);
     };
-  }, [userId]);
+  }, [userId, inputFocused]);
 
   useEffect(() => {
     if (isTyping) {
@@ -85,10 +85,10 @@ const SendMessageForm = () => {
           placeholder="Type here"
           className="w-full border-t border-none rounded-r-none input input-bordered"
           {...register("message")}
-          ref={inputRef} // Assign ref to the input field
+          onFocus={() => setInputFocused(true)}
+          onBlur={() => setInputFocused(false)}
         />
         <button
-          type="submit"
           className="border-none rounded-l-none btn btn-square disabled:bg-opacity-95 disabled:cursor-no-drop"
           disabled={loading || !formState.isValid}>
           {loading ? (
