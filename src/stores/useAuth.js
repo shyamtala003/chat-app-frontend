@@ -9,6 +9,7 @@ export const useAuth = create(
       username: undefined,
       name: undefined,
       gender: undefined,
+      profilePicture: undefined,
 
       setUseDetails: (rest) => {
         set((state) => ({
@@ -24,6 +25,7 @@ export const useAuth = create(
           username: undefined,
           name: undefined,
           gender: undefined,
+          profilePicture: undefined,
         }));
       },
     }),

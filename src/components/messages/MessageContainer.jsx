@@ -30,14 +30,26 @@ const MessageContainer = () => {
     <div
       id="messageContainer"
       className="flex flex-col w-full h-full px-4 pt-2 overflow-y-auto">
+      {/* loading skeleton */}
       {loading && (
         <>
           <MessageSkeleton />
         </>
       )}
 
+      {/* display this div if messages array is emapty */}
+      {!loading && messages.length === 0 && (
+        <p className="text-center text-md mt-1 text-white">
+          Let's start a new conversation with{" "}
+          <span className="text-green-300 font-medium capitalize">
+            {conversation?.name}
+          </span>
+        </p>
+      )}
+
+      {/* display messages if messages araay is not emptry */}
       {!loading &&
-        messages &&
+        messages.length > 0 &&
         messages.map((message) => (
           <MessageElement key={message._id} message={message} />
         ))}
