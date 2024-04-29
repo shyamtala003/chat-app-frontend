@@ -61,8 +61,21 @@ const SignUp = () => {
   const onSubmit = async (data) => {
     try {
       let response = await apiCall("post", "/auth/v1/signup", { body: data });
-      let { _id: userId, username, name, gender } = response.data;
-      setUseDetails({ isLoggedIn: true, userId, username, gender, name });
+      let {
+        _id: userId,
+        username,
+        name,
+        gender,
+        profilePicture,
+      } = response.data;
+      setUseDetails({
+        isLoggedIn: true,
+        userId,
+        username,
+        gender,
+        name,
+        profilePicture,
+      });
       toast(response.message, { type: "success" });
       return reset();
     } catch (error) {
@@ -72,7 +85,7 @@ const SignUp = () => {
 
   return (
     <MainLayout>
-      <div className="flex flex-col self-center w-full h-full px-4 py-8 mx-auto bg-gray-600 rounded-r-none md:h-auto md:max-w-lg backdrop-blur-lg bg-clip-padding backdrop-filter bg-opacity-10 md:rounded-2xl">
+      <div className="flex flex-col self-center w-full h-full px-4 py-8 mx-auto  rounded-r-none md:h-auto md:max-w-lg md:rounded-2xl bg-blur-primary">
         <h2 className="text-2xl font-semibold text-center text-white">
           Sign Up to <span className="text-green-300">ChatApp</span>
         </h2>
