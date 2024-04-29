@@ -1,5 +1,5 @@
 import { BsFillSendFill } from "react-icons/bs";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useConversation } from "../../stores/useConversation";
 import useApiCall from "../../hooks/useApiCall";
 import * as yup from "yup";
@@ -18,6 +18,7 @@ const SendMessageForm = () => {
   const { userId } = useAuth();
   const { apiCall, loading } = useApiCall();
   const [isTyping, setIsTyping] = useState(false);
+  const inputRef = useRef(null);
 
   // use form hook for form management
   const { handleSubmit, register, formState, reset } = useForm({
@@ -45,7 +46,7 @@ const SendMessageForm = () => {
     let typingTimeout;
 
     const handleKeyDown = () => {
-      setIsTyping(true);
+      if (inputRef.current === document.activeElement) setIsTyping(true);
       clearTimeout(typingTimeout);
       typingTimeout = setTimeout(() => {
         setIsTyping(false);
@@ -56,7 +57,6 @@ const SendMessageForm = () => {
 
     return () => {
       document.removeEventListener("keydown", handleKeyDown);
-      clearTimeout(typingTimeout);
     };
   }, [userId]);
 
@@ -78,18 +78,17 @@ const SendMessageForm = () => {
     <div className="sticky w-full bottom-1">
       <form
         className="flex items-center w-full px-4 py-3"
-        onSubmit={handleSubmit(sendMessage)}
-        onKeyDown={() => setIsTyping(true)}>
-        {" "}
-        {/* Listen for keydown event */}
+        onSubmit={handleSubmit(sendMessage)}>
         <input
           type="text"
           name="message"
           placeholder="Type here"
           className="w-full border-t border-none rounded-r-none input input-bordered"
           {...register("message")}
+          ref={inputRef} // Assign ref to the input field
         />
         <button
+          type="submit"
           className="border-none rounded-l-none btn btn-square disabled:bg-opacity-95 disabled:cursor-no-drop"
           disabled={loading || !formState.isValid}>
           {loading ? (
