@@ -8,6 +8,7 @@ import ButtonWIthLoading from "../../components/global/ButtonWIthLoading";
 import { useAuth } from "../../stores/useAuth";
 import { toast } from "react-toastify";
 import useApiCall from "../../hooks/useApiCall";
+import { Link } from "react-router-dom";
 
 const schema = yup.object().shape({
   username: yup
@@ -91,6 +92,10 @@ const SignIn = () => {
             register={register}
             errors={errors}
           />
+
+          <Link to={"/registration"} className="text-white text-opacity-70">
+            Ready to join us? Sign up now.
+          </Link>
           <ButtonWIthLoading loading={loading}>Login</ButtonWIthLoading>
         </form>
       </div>
