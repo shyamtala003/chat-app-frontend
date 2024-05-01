@@ -90,12 +90,12 @@ const SendMessageForm = () => {
           onBlur={() => setInputFocused(false)}
         />
         <button
-          className="border-none  btn rounded-3xl disabled:bg-opacity-95 disabled:cursor-no-drop"
+          className="border-none  btn rounded-3xl bg-green-300  disabled:bg-opacity-95 disabled:cursor-no-drop"
           disabled={loading || !formState.isValid}>
           {loading ? (
             <span className="loading w-4 loading-spinner"></span>
           ) : (
-            <BsFillSendFill className="w-4" />
+            <BsFillSendFill className="w-4 text-black" />
           )}
         </button>
       </form>
