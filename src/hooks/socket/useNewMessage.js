@@ -5,15 +5,16 @@ import scrollDown from "../../utils/scrollDown";
 import incomingAudio from "../../assets/audio/incoming.mp3";
 
 const useNewMessage = () => {
-  const { setMessage } = useConversation();
+  const { setMessage, conversation } = useConversation();
   const notificationSound = new Audio(incomingAudio);
-
   useEffect(() => {
     const newMessageComes = (newMessage) => {
-      newMessage = { ...newMessage, shake: true };
-      setMessage(newMessage);
-      notificationSound.play();
-      return scrollDown();
+      if (conversation._id === newMessage.senderId) {
+        newMessage = { ...newMessage, shake: true };
+        setMessage(newMessage);
+        notificationSound.play();
+        return scrollDown();
+      }
     };
 
     // Listen for "typing" and "stopTyping" events
@@ -23,7 +24,7 @@ const useNewMessage = () => {
     return () => {
       socket.off("newMessage", newMessageComes);
     };
-  }, []);
+  }, [conversation]);
 };
 
 export default useNewMessage;

@@ -10,7 +10,7 @@ const Conversations = () => {
   // fetch all convesasions
   const fetchConversation = useCallback(async () => {
     let response = await apiCall("get", "/api/v1/users");
-    return setConversations(response.data.user);
+    return setConversations(response.data.users);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

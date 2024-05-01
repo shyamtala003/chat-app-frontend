@@ -35,7 +35,17 @@ const ConversationItem = memo(function ConversationItem({ user }) {
         </div>
 
         <div className="flex flex-col items-start justify-center">
-          <p className="text-white text-md">{user?.name}</p>
+          <p className="text-white text-md capitalize">{user?.name}</p>
+
+          {/* code for display last message */}
+          <div
+            className={`collapse ${
+              !isTyping ? "collapse-open" : "collapse-close"
+            }`}>
+            <p className="p-0 text-[12px] font-medium  text-gray  collapse-content">
+              {user.lastMessage}
+            </p>
+          </div>
 
           {/* code for typing status */}
           <div

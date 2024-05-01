@@ -24,7 +24,7 @@ const MessageElement = ({ message }) => {
         </div>
       </div>
       <div
-        className={`chat-bubble text-white text-opacity-70 ${self ? "bg-gray-900" : "bg-gray-700"} `}>
+        className={`chat-bubble text-white text-opacity-70 ${self ? "bg-gray-900" : "bg-gray-800"} `}>
         {message.message}
         <time className="block text-xs  text-right opacity-50">
           {formattedTime}
