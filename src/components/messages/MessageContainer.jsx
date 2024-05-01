@@ -20,16 +20,14 @@ const MessageContainer = () => {
         `/api/v1/get-message/${conversation._id}`
       );
       setMessages(messages.data.messages);
-      return scrollDown("messageContainer");
+      return scrollDown();
     }
 
     fetchConversation();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [conversation._id]);
   return (
-    <div
-      id="messageContainer"
-      className="flex flex-col w-full h-full px-4 pt-2 overflow-y-auto">
+    <div className="flex flex-col w-full h-full px-4 pt-2 min-h-[80vh] md:min-h-[87vh]">
       {/* loading skeleton */}
       {loading && (
         <>

@@ -12,7 +12,7 @@ const MessagesContainer = () => {
   useNewMessage();
   return (
     <div
-      className={`${!param.id ? "hidden" : "flex"} sm:flex  flex-col w-full h-full`}>
+      className={`${!param.id ? "hidden" : "flex"} sm:flex  flex-col w-full h-full min-h-screen`}>
       {!conversation && <DefaultView />}
 
       {conversation && (

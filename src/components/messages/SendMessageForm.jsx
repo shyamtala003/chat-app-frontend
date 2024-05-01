@@ -38,7 +38,7 @@ const SendMessageForm = () => {
       }
     );
     setMessage(response.data.message);
-    scrollDown("messageContainer");
+    scrollDown();
     return reset();
   }
 

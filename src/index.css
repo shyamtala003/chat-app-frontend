@@ -20,14 +20,14 @@
 body {
   width: 100%;
   min-height: 100vh;
-  overflow-y: hidden;
+  /* overflow-y: hidden; */
   background: linear-gradient(
       to bottom right,
       rgba(0, 0, 0, 0.3),
       rgba(255, 255, 255, 0)
     ),
-    url("./assets/BG.jpeg");
-
+    url("./assets/SMBG.jpg");
+  background-attachment: fixed;
   background-size: cover;
   background-position: center;
 }

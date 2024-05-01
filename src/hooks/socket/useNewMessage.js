@@ -10,7 +10,7 @@ const useNewMessage = () => {
     const newMessageComes = (newMessage) => {
       newMessage = { ...newMessage, shake: true };
       setMessage(newMessage);
-      return scrollDown("messageContainer");
+      return scrollDown();
     };
 
     // Listen for "typing" and "stopTyping" events
