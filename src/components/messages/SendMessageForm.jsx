@@ -14,7 +14,8 @@ const schema = yup.object().shape({
 });
 
 const SendMessageForm = () => {
-  const { conversation, setMessage } = useConversation();
+  const { conversation, setMessage, updateUserLastMessageAndMoveToTop } =
+    useConversation();
   const { userId } = useAuth();
   const { apiCall, loading } = useApiCall();
   const [isTyping, setIsTyping] = useState(false);
@@ -36,6 +37,10 @@ const SendMessageForm = () => {
       {
         body: data,
       }
+    );
+    updateUserLastMessageAndMoveToTop(
+      conversation._id,
+      response.data.message.message
     );
     setMessage(response.data.message);
     scrollDown();

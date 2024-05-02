@@ -1,7 +1,7 @@
 import { memo, useEffect } from "react";
 import { useConversation } from "../../stores/useConversation";
 import useTypingStatus from "../../hooks/socket/useTypingStatus";
-import { Navigate, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 const ConversationItem = memo(function ConversationItem({ user }) {
   const navigate = useNavigate();
@@ -42,7 +42,7 @@ const ConversationItem = memo(function ConversationItem({ user }) {
             className={`collapse ${
               !isTyping ? "collapse-open" : "collapse-close"
             }`}>
-            <p className="p-0 text-[12px] font-medium  text-gray  collapse-content">
+            <p className="p-0 text-[12px] font-medium  text-gray  collapse-content overflow-hidden text-ellipsis whitespace-nowrap">
               {user.lastMessage}
             </p>
           </div>

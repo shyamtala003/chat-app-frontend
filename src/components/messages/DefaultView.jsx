@@ -6,7 +6,7 @@ const DefaultView = () => {
   return (
     <div className="flex flex-col gap-1 items-center justify-center w-full h-full min-h-screen">
       <p className="text-2xl leading-8 text-center text-white">
-        Welcome 👋🏻 {name} 🌴 <br />
+        Welcome 👋🏻 <span className="capitalize">{name}</span> 🌴 <br />
         Select chat to start messaging
       </p>
       <TiMessages className="text-5xl text-white" />

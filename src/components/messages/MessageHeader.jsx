@@ -16,7 +16,7 @@ const MessageHeader = () => {
         </div>
 
         <div className="flex flex-col items-start justify-center">
-          <p className="text-white text-md">{user?.name}</p>
+          <p className="text-white text-md capitalize">{user?.name}</p>
 
           {/* code for typing status */}
           <div
