@@ -7,7 +7,7 @@ const MessageHeader = () => {
   const isTyping = useTypingStatus(user._id);
 
   return (
-    <div className="flex items-center justify-between px-4 py-3 sticky top-0 z-10  bg-black bg-opacity-80 backdrop-blur-md border-b border-white border-opacity-15">
+    <div className="flex items-center justify-between px-4 py-3 sticky top-0 z-10  bg-blur-dark border-b border-white border-opacity-15">
       <div className="flex items-center gap-2">
         <div className={`avatar ${isOnline && "online"}`}>
           <div className="w-10 rounded-full">

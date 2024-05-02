@@ -2,6 +2,8 @@ import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import { useAuth } from "../../stores/useAuth";
 import { useConversation } from "../../stores/useConversation";
+import { IoCheckmarkDoneSharp } from "react-icons/io5";
+
 dayjs.extend(relativeTime);
 
 const MessageElement = ({ message }) => {
@@ -26,8 +28,13 @@ const MessageElement = ({ message }) => {
       <div
         className={`chat-bubble text-white text-opacity-70 ${self ? "bg-gray-900" : "bg-gray-800"} `}>
         {message.message}
-        <time className="block text-xs  text-right opacity-50">
-          {formattedTime}
+        <time className="flex justify-end items-center gap-1 text-xs  ">
+          <span className="opacity-50">{formattedTime}</span>
+          {self && (
+            <IoCheckmarkDoneSharp
+              className={`text-base ${message?.read ? "text-green-300" : "text-gray-400"}`}
+            />
+          )}
         </time>
       </div>
     </div>
