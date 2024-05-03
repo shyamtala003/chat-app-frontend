@@ -39,15 +39,20 @@ export const useConversation = create((set) => ({
   },
 
   // 7.Function to update last message and move user to top
-  updateUserLastMessageAndMoveToTop(userId, lastMessage) {
+  updateUserLastMessageAndMoveToTop(
+    userId,
+    lastMessage,
+    updateUnreadCount = true
+  ) {
     set((state) => {
       const updatedUserList = [...state.sidebarUserList];
       const index = updatedUserList.findIndex((user) => user._id === userId);
       if (index !== -1) {
         // Update last message
         updatedUserList[index].lastMessage = lastMessage;
-        updatedUserList[index].unreadMessageCount =
-          updatedUserList[index].unreadMessageCount + 1;
+        if (updateUnreadCount)
+          updatedUserList[index].unreadMessageCount =
+            updatedUserList[index].unreadMessageCount + 1;
         // Move user to the top
         const [user] = updatedUserList.splice(index, 1);
         updatedUserList.unshift(user);

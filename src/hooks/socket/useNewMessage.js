@@ -14,11 +14,12 @@ const useNewMessage = () => {
   const notificationSound = new Audio(incomingAudio);
   useEffect(() => {
     const newMessageComes = (newMessage) => {
-      if (conversation._id === newMessage.senderId) {
+      if (conversation?._id === newMessage.senderId) {
         // condition execute when current user have already opened conversation with new message's sender
         updateUserLastMessageAndMoveToTop(
           newMessage?.senderId,
-          newMessage?.message
+          newMessage?.message,
+          false
         );
 
         newMessage = { ...newMessage, shake: true };
