@@ -3,6 +3,7 @@ import { socket } from "../../socket/socket";
 import { useConversation } from "../../stores/useConversation";
 import scrollDown from "../../utils/scrollDown";
 import incomingAudio from "../../assets/audio/incoming.mp3";
+import { useAuth } from "../../stores/useAuth";
 
 const useNewMessage = () => {
   const {
@@ -11,6 +12,7 @@ const useNewMessage = () => {
     sidebarUserList,
     updateUserLastMessageAndMoveToTop,
   } = useConversation();
+  const { userId } = useAuth();
   const notificationSound = new Audio(incomingAudio);
   useEffect(() => {
     const newMessageComes = (newMessage) => {
@@ -24,8 +26,14 @@ const useNewMessage = () => {
 
         newMessage = { ...newMessage, shake: true };
         setMessage(newMessage);
-        notificationSound.play();
-        return scrollDown();
+
+        // send msg readed conformation to sender
+        socket.emit("allMessageReaded", {
+          msgReaderId: userId,
+          senderId: newMessage.senderId,
+        });
+        scrollDown();
+        return notificationSound.play();
       } else {
         // condition execute when current user have not open conversation with new message's sender
         updateUserLastMessageAndMoveToTop(

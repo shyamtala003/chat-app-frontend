@@ -1,8 +1,10 @@
 import { useParams } from "react-router-dom";
 import Conversations from "./Conversations";
 import Searchbar from "./Searchbar";
+import useAllMessageReaded from "../../hooks/socket/useAllMessageReaded";
 
 const Sidebar = () => {
+  useAllMessageReaded();
   const param = useParams();
   return (
     <div

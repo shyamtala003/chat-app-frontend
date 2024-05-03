@@ -22,9 +22,9 @@ const useAllMessageReaded = () => {
 
     // Clean up function to disconnect the socket when the component unmounts
     return () => {
-      socket.disconnect();
+      socket.off("allMessageReaded");
     };
-  }, [conversation?._id]);
+  }, [conversation]);
 };
 
 export default useAllMessageReaded;
