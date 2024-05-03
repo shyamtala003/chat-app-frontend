@@ -40,7 +40,8 @@ const SendMessageForm = () => {
     );
     updateUserLastMessageAndMoveToTop(
       conversation._id,
-      response.data.message.message
+      response.data.message.message,
+      false
     );
     setMessage(response.data.message);
     scrollDown();

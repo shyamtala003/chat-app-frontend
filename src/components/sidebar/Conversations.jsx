@@ -8,7 +8,7 @@ const Conversations = () => {
   const { loading, apiCall } = useApiCall();
   const { sidebarUserList, setSidebarUserList } = useConversation();
 
-  // fetch all convesasions
+  // fetch all conversation
   const fetchConversation = useCallback(async () => {
     let response = await apiCall("get", "/api/v1/users");
     return setSidebarUserList(response.data.users);

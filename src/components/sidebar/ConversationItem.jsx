@@ -5,13 +5,19 @@ import { useNavigate, useParams } from "react-router-dom";
 
 const ConversationItem = memo(function ConversationItem({ user }) {
   const navigate = useNavigate();
-  const { setSelectedConversation, conversation, onlineUsers } =
-    useConversation();
+  const {
+    setSelectedConversation,
+    conversation,
+    onlineUsers,
+    setUnreadMessageCount,
+  } = useConversation();
   let isOnline = onlineUsers.includes(user._id);
   const isTyping = useTypingStatus(user._id);
   function setConversation() {
-    if (conversation === null || conversation?.id !== user._id)
+    if (conversation === null || conversation?.id !== user._id) {
+      setUnreadMessageCount(user._id, 0);
       return navigate(`/chat/${user._id}`);
+    }
   }
 
   const param = useParams();
