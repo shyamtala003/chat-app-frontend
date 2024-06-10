@@ -94,7 +94,8 @@ const SignIn = () => {
           />
 
           <Link to={"/registration"} className="text-white text-opacity-70">
-            Ready to join us? Sign up now.
+            Ready to join us?{" "}
+            <span className="text-green-300">Sign up now.</span>
           </Link>
           <ButtonWIthLoading loading={loading}>Login</ButtonWIthLoading>
         </form>

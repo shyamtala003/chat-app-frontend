@@ -127,7 +127,7 @@ const SignUp = () => {
           />
 
           <Link to={"/login"} className="text-white text-opacity-70">
-            Already have an acoount? Log In
+            Already have an acoount? <span className="text-green-300">Log In</span>
           </Link>
           <ButtonWIthLoading loading={loading}>Sign Up</ButtonWIthLoading>
         </form>
